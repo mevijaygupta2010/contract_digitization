@@ -1,5 +1,1 @@
-numpy>=1.9.2
-pandas>=0.19
-transformers
-textract
-torch
+torch==1.9.1
