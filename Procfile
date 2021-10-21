@@ -1,1 +1,1 @@
-worker: python contract_dz.py
+web: gunicorn app:app

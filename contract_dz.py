@@ -3,8 +3,15 @@ import pandas as pd
 import textract
 import os
 import torch
-onlyfiles='Sample 1 - Garratt Callahan SPA 2020-2022.docx'
+from flask import Flask
+from flask import jsonify
+from flask_restful import Resource
 
+onlyfiles='Sample 1 - Garratt Callahan SPA 2020-2022.docx'
+####
+
+###############
+#Cleaning the Data
 ###############
 def preprocess_string(txt):
     txt=txt.replace('\t',' ')
@@ -40,6 +47,8 @@ def preprocess_string(txt):
     txt.replace(')','')
     return txt
 ###############
+#Dividing the Data into 1500 words
+##############
 def get_dataframe_chunk(text, file_name):
     line_bucket = text
     start_len = 0
@@ -77,8 +86,12 @@ df_final = pd.DataFrame()
 text_dump=""
 text_dump_str=""
 text_dump_str_lower=""
+#text_dump=extract_raw_info(onlyfiles)
+
+#tmp_text_dump =' '.join(text_dump)
 text_dump= textract.process(onlyfiles)
 tmp_text_dump=text_dump.decode('utf-8')
+
 text_dump_str_lower=tmp_text_dump.lower()
 text_dump_str_final=preprocess_string(text_dump_str_lower)
 df_temp=pd.DataFrame()
@@ -195,6 +208,8 @@ def contract_digitization(quest, type_of_quest="a"):
     output_con_dig.append(data_temp_filtered.Answer.iloc[0])
     output_con_dig.append(data_temp_filtered.text.iloc[0])
     output_con_dig.append(question)
+
     return output_con_dig
-output=contract_digitization(question)
-print(output)
+
+
+
