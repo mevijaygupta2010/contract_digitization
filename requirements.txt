@@ -1,4 +1,4 @@
 numpy>=1.9.2
 pandas>=0.19
-textract==1.6.4
 torch==1.9.1
+transformers
